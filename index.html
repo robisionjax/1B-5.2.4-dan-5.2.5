@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi Reka Bentuk Fesyen - RBT Tingkatan 1</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Fredoka', 'cursive', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#3b82f6',
+                            purple: '#8b5cf6',
+                            yellow: '#f59e0b',
+                            green: '#10b981',
+                            pink: '#ec4899',
+                            bg: '#f0f9ff'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+        .card-friendly {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 4px solid #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .btn-friendly {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-friendly:hover:not(:disabled) {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+        }
+        .btn-friendly:active:not(:disabled) {
+            transform: translateY(2px) scale(0.98);
+        }
+        .bubble-glow {
+            animation: bounceSlow 3s infinite ease-in-out;
+        }
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0f2fe;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-amber-300">
+
+    <!-- Header Navbar -->
+    <header class="w-full bg-white/90 backdrop-blur-md border-b-4 border-blue-400 sticky top-0 z-50 shadow-md">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-amber-400 to-amber-300 text-slate-900 p-2.5 rounded-2xl shadow-md border-2 border-white bubble-glow">
+                    <i class="fa-solid fa-shirt text-2xl text-amber-900"></i>
+                </div>
+                <div>
+                    <h1 class="font-display text-xl sm:text-2xl font-bold text-blue-600 leading-none">
+                        MISI REKA BENTUK FESYEN 👗
+                    </h1>
+                    <p class="text-xs sm:text-sm text-emerald-600 font-extrabold tracking-wide mt-0.5">RBT Tingkatan 1 – Subtopik 5.2.4 & 5.2.5</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button id="bgmToggleBtn" onclick="toggleBGM()" class="flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-extrabold transition-all border-2 border-blue-200">
+                    <i id="bgmIcon" class="fa-solid fa-music text-amber-500"></i>
+                    <span id="bgmStatus" class="hidden sm:inline">Muzik: ON</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex items-center justify-center p-3 sm:p-6">
+        <div class="w-full max-w-3xl">
+
+            <!-- 1. LANDING & REGISTRATION SCREEN -->
+            <section id="startScreen" class="card-friendly rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden my-2 border-t-8 border-t-amber-400">
+                <div class="relative z-10">
+                    <span class="inline-block bg-amber-100 text-amber-800 border-2 border-amber-300 font-black text-xs uppercase tracking-wider px-4 py-2 rounded-full mb-3 shadow-sm bubble-glow">
+                        ⭐ Latihan Interaktif RBT Tingkatan 1 ⭐
+                    </span>
+                    
+                    <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-800 mb-3 leading-tight">
+                        Lakaran & Analisis <span class="text-blue-600">Reka Bentuk Fesyen!</span> ✂️✨
+                    </h2>
+                    
+                    <p class="text-slate-600 font-bold text-sm sm:text-base mb-6 max-w-xl mx-auto leading-relaxed">
+                        Jawab <span class="text-amber-600 font-extrabold">20 Soalan Latihan</span> (Objektif & Betul/Salah) dengan bantuan <span class="text-purple-600 font-extrabold">Kad Booster Power-Up</span>!
+                    </p>
+
+                    <!-- Student Registration Form -->
+                    <div class="bg-blue-50/70 p-5 rounded-3xl max-w-md mx-auto mb-6 border-2 border-blue-200 text-left shadow-inner">
+                        <label class="block text-xs font-black text-blue-800 uppercase mb-1">Nama Anda / Murid <span class="text-rose-500">*</span></label>
+                        <div class="relative mb-3">
+                            <i class="fa-solid fa-user-circle absolute left-3.5 top-3.5 text-blue-400 text-lg"></i>
+                            <input type="text" id="playerName" placeholder="Contoh: Amirah Husna" class="w-full bg-white border-2 border-blue-200 rounded-2xl py-3 pl-10 pr-3 text-sm font-bold text-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                        </div>
+
+                        <label class="block text-xs font-black text-blue-800 uppercase mb-1">Kelas <span class="text-rose-500">*</span></label>
+                        <div class="relative mb-4">
+                            <i class="fa-solid fa-school absolute left-3.5 top-3.5 text-blue-400 text-lg"></i>
+                            <input type="text" id="playerClass" placeholder="Contoh: 1 Kreatif" class="w-full bg-white border-2 border-blue-200 rounded-2xl py-3 pl-10 pr-3 text-sm font-bold text-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                        </div>
+
+                        <label class="block text-xs font-black text-amber-800 uppercase mb-1">Pilih Bahagian Soalan:</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-layer-group absolute left-3.5 top-3.5 text-amber-500 text-lg"></i>
+                            <select id="subtopicFilter" class="w-full bg-white border-2 border-amber-200 rounded-2xl py-3 pl-10 pr-3 text-sm font-extrabold text-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all appearance-none cursor-pointer">
+                                <option value="ALL">🌟 Semua Bahagian (20 Soalan)</option>
+                                <option value="Bahagian A: Objektif">📌 Bahagian A: Objektif (10 Soalan)</option>
+                                <option value="Bahagian B: Betul/Salah">📌 Bahagian B: Betul / Salah (10 Soalan)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-center gap-3">
+                        <button onclick="startQuiz()" class="btn-friendly bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-display text-lg sm:text-xl font-bold px-8 py-3.5 rounded-2xl shadow-lg border-2 border-emerald-300 inline-flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play-circle text-2xl"></i>
+                            <span>MULA MENCUBA!</span>
+                        </button>
+                        <button onclick="toggleLeaderboardModal(true)" class="btn-friendly bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-slate-900 font-display text-lg sm:text-xl font-bold px-6 py-3.5 rounded-2xl shadow-lg border-2 border-amber-200 inline-flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-trophy text-slate-900"></i>
+                            <span>Papan Ranking</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. QUIZ SCREEN -->
+            <section id="quizScreen" class="hidden card-friendly rounded-3xl p-5 sm:p-8 relative my-2 border-t-8 border-t-blue-500">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4 pb-3 border-b-2 border-slate-100">
+                    <div class="flex items-center justify-between sm:justify-start gap-3">
+                        <span id="subtopicBadge" class="bg-blue-100 text-blue-800 border-2 border-blue-200 text-xs font-black px-3.5 py-1.5 rounded-xl uppercase tracking-wider">
+                            Bahagian A
+                        </span>
+                        <div class="flex items-center gap-2 text-amber-800 text-xs sm:text-sm font-black bg-amber-100 px-3.5 py-1.5 rounded-xl border-2 border-amber-200">
+                            <i class="fa-solid fa-star text-amber-500 text-base"></i>
+                            <span>MARKAH: <span id="liveScore" class="text-base text-blue-700">0</span></span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-xs font-extrabold text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">
+                        <i class="fa-solid fa-user-check text-emerald-600"></i>
+                        <span id="displayPlayerInfo">Pelajar: -</span>
+                    </div>
+                </div>
+
+                <!-- Booster Cards Panel -->
+                <div class="mb-4 bg-gradient-to-r from-purple-100 via-pink-100 to-amber-100 p-3 rounded-2xl border-2 border-purple-200 shadow-sm flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-black text-purple-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-sm"></i> Bantuan Booster:
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <!-- Booster 1: 50/50 -->
+                        <button id="btn5050" onclick="useBooster5050()" class="btn-friendly bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow border border-indigo-300">
+                            <i class="fa-solid fa-scissors text-amber-300"></i>
+                            <span>50:50 (<span id="count5050">2</span>)</span>
+                        </button>
+                        <!-- Booster 2: Hint -->
+                        <button id="btnHint" onclick="useBoosterHint()" class="btn-friendly bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-slate-900 text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow border border-amber-300">
+                            <i class="fa-solid fa-lightbulb text-white"></i>
+                            <span>Hint (<span id="countHint">2</span>)</span>
+                        </button>
+                        <!-- Booster 3: Skip -->
+                        <button id="btnSkip" onclick="useBoosterSkip()" class="btn-friendly bg-teal-500 hover:bg-teal-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow border border-teal-300">
+                            <i class="fa-solid fa-forward text-emerald-200"></i>
+                            <span>Skip (<span id="countSkip">1</span>)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="flex justify-between text-xs text-slate-600 font-extrabold mb-1">
+                    <span id="queueCountInfo">Baki Soalan: 20</span>
+                    <span id="progressPercentText" class="text-blue-600">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3.5 rounded-full mb-5 overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progressBar" class="bg-gradient-to-r from-blue-400 via-emerald-400 to-amber-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="mb-5">
+                    <div class="flex items-start gap-3">
+                        <span id="questionNum" class="bg-blue-600 text-white font-display text-base font-bold w-9 h-9 rounded-2xl flex items-center justify-center shrink-0 shadow-md">
+                            1
+                        </span>
+                        <h3 id="questionText" class="text-base sm:text-lg font-black text-slate-800 leading-snug pt-0.5">
+                            Memuatkan soalan...
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div id="optionsContainer" class="grid grid-cols-1 gap-2.5 mb-5"></div>
+
+                <!-- Hint Banner -->
+                <div id="hintBanner" class="hidden p-4 rounded-2xl mb-4 text-xs sm:text-sm font-bold bg-amber-100 text-amber-900 border-2 border-amber-300 flex items-start gap-2.5 shadow-sm">
+                    <i class="fa-solid fa-lightbulb text-amber-500 text-lg mt-0.5 shrink-0"></i>
+                    <div>
+                        <span class="font-extrabold uppercase">Petunjuk Nota:</span> <span id="hintText" class="font-medium text-slate-800"></span>
+                    </div>
+                </div>
+
+                <!-- Feedback Banner -->
+                <div id="feedbackBanner" class="hidden p-4 rounded-2xl mb-4 text-sm font-bold flex items-start gap-3 border-2 shadow-sm">
+                    <i id="feedbackIcon" class="fa-solid text-2xl mt-0.5 shrink-0"></i>
+                    <div>
+                        <div id="feedbackTitle" class="font-black text-base"></div>
+                        <div id="feedbackText" class="mt-1 font-medium leading-relaxed"></div>
+                    </div>
+                </div>
+
+                <!-- Next Button -->
+                <div class="flex justify-end">
+                    <button id="nextBtn" onclick="nextQuestion()" class="hidden btn-friendly bg-blue-600 hover:bg-blue-700 text-white font-display font-bold text-base px-8 py-3 rounded-2xl shadow-md inline-flex items-center gap-2">
+                        <span>Soalan Seterusnya</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. RESULT SCREEN -->
+            <section id="resultScreen" class="hidden card-friendly rounded-3xl p-6 sm:p-10 text-center relative my-2 border-t-8 border-t-amber-400">
+                <div class="mb-3 inline-block bg-amber-100 p-4 rounded-full text-amber-600 border-2 border-amber-300 shadow-sm bubble-glow">
+                    <i class="fa-solid fa-award text-5xl"></i>
+                </div>
+
+                <h2 class="font-display text-3xl sm:text-4xl font-black text-slate-800 mb-1">
+                    Syabas, <span id="resPlayerName" class="text-blue-600">Pelajar</span>! 🎉
+                </h2>
+                <p class="text-slate-600 font-bold text-sm sm:text-base mb-6">
+                    Anda telah berjaya menjawab <span class="font-extrabold text-emerald-600">semua soalan</span> dengan betul!
+                </p>
+
+                <!-- Score Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-6">
+                    <div class="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200">
+                        <div class="text-xs text-emerald-700 font-black uppercase">Markah Akhir</div>
+                        <div id="finalScore" class="font-display text-3xl font-black text-emerald-600 mt-0.5">200</div>
+                    </div>
+                    <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200">
+                        <div class="text-xs text-amber-700 font-black uppercase">Ketepatan Awal</div>
+                        <div id="accuracyPercent" class="font-display text-3xl font-black text-amber-600 mt-0.5">100%</div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-2xl border-2 border-indigo-200 col-span-2 sm:col-span-1">
+                        <div class="text-xs text-indigo-700 font-black uppercase">Ulangan Salah</div>
+                        <div id="wrongAttemptsCount" class="font-display text-3xl font-black text-indigo-600 mt-0.5">0</div>
+                    </div>
+                </div>
+
+                <div id="motivationMsg" class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200 mb-6 max-w-lg mx-auto text-sm text-slate-700 font-bold leading-relaxed">
+                    "Tahniah, penguasaan anda dalam tajuk Reka Bentuk Fesyen sangat cemerlang!"
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-3">
+                    <button onclick="restartQuiz()" class="btn-friendly bg-blue-600 hover:bg-blue-700 text-white font-display font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Cuba Lagi</span>
+                    </button>
+                    <button onclick="toggleLeaderboardModal(true)" class="btn-friendly bg-amber-400 hover:bg-amber-500 text-slate-900 font-display text-lg px-6 py-3.5 rounded-2xl shadow-lg border-2 border-amber-200 inline-flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-list-ol"></i>
+                        <span>Papan Ranking</span>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboardModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-lg shadow-2xl border-4 border-amber-400 relative max-h-[90vh] flex flex-col">
+            <button onclick="toggleLeaderboardModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl w-9 h-9 flex items-center justify-center rounded-full bg-slate-100">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <div class="inline-block bg-amber-100 text-amber-600 p-3 rounded-full mb-1">
+                    <i class="fa-solid fa-trophy text-3xl"></i>
+                </div>
+                <h3 class="font-display text-2xl font-black text-slate-800">Papan Ranking Murid</h3>
+                <p class="text-xs font-bold text-slate-500">Kedudukan pelajar terbaik Reka Bentuk Fesyen T1</p>
+            </div>
+
+            <div id="leaderboardList" class="flex-grow overflow-y-auto space-y-2 pr-1 my-2"></div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                <button onclick="clearLeaderboard()" class="text-rose-500 hover:underline font-bold">Padam Rekod</button>
+                <button onclick="toggleLeaderboardModal(false)" class="bg-slate-800 text-white font-bold px-6 py-2 rounded-xl">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="w-full text-center py-4 text-xs font-bold text-slate-500 bg-white/80 border-t border-slate-200">
+        RBT Tingkatan 1 • Subtopik 5.2.4 Lakaran Reka Bentuk Fesyen & 5.2.5 Analisis Elemen
+    </footer>
+
+    <!-- JavaScript Quiz Logic -->
+    <script>
+        function setSafeText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = text;
+        }
+
+        const rawQuestionsDatabase = [
+            // ================= BAHAGIAN A – OBJEKTIF (1 - 10) =================
+            {
+                id: 1,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah dua jenis lakaran yang digunakan dalam reka bentuk fesyen?",
+                correctText: "Lakaran 2D dan lakaran 3D",
+                wrongTexts: [
+                    "Lakaran kasar dan lakaran akhir",
+                    "Lakaran warna dan lakaran bentuk",
+                    "Lakaran digital dan lakaran tangan"
+                ],
+                explanation: "Dalam subtopik reka bentuk fesyen, dua jenis lakaran utama yang diperkenalkan ialah lakaran 2D dan lakaran 3D."
+            },
+            {
+                id: 2,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah maksud lakaran 2D?",
+                correctText: "Lakaran yang mempunyai panjang dan lebar sahaja",
+                wrongTexts: [
+                    "Lakaran yang mempunyai panjang, lebar dan kedalaman",
+                    "Lakaran yang berbentuk tiga dimensi",
+                    "Lakaran yang mempunyai isipadu"
+                ],
+                explanation: "Lakaran 2D (dua dimensi) merujuk kepada lakaran bergambar yang hanya memaparkan dimensi panjang dan lebar."
+            },
+            {
+                id: 3,
+                subtopic: "Bahagian A: Objektif",
+                question: "Antara berikut, yang manakah merupakan contoh lakaran 3D dalam buku teks?",
+                correctText: "Seluar, kasut, topi dan beg",
+                wrongTexts: [
+                    "Meja, kerusi, almari dan katil",
+                    "Buku, pensel, pemadam dan pembaris",
+                    "Kereta, bas, motosikal dan lori"
+                ],
+                explanation: "Seluar, kasut, topi dan beg merupakan antara contoh barangan aksesori/pakaian reka bentuk fesyen 3D."
+            },
+            {
+                id: 4,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah tujuan elemen garisan digunakan dalam lakaran fesyen?",
+                correctText: "Menghasilkan corak dan memperlihatkan bentuk",
+                wrongTexts: [
+                    "Menentukan harga pakaian",
+                    "Menentukan jenis mesin jahit",
+                    "Mengukur berat pakaian"
+                ],
+                explanation: "Elemen garisan digunakan untuk membimbing pandangan, menghasilkan corak serta memperlihatkan bentuk fizikal pakaian."
+            },
+            {
+                id: 5,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah kesan penggunaan garisan menegak pada pakaian?",
+                correctText: "Memberikan kesan panjang, tinggi atau langsing",
+                wrongTexts: [
+                    "Menjadikan pemakai kelihatan lebih rendah",
+                    "Menjadikan pemakai kelihatan lebih besar",
+                    "Menjadikan pakaian kelihatan lebih pendek"
+                ],
+                explanation: "Garisan menegak mengalihkan pandangan mata dari atas ke bawah yang memberi ilusi pemakai kelihatan lebih tinggi dan langsing."
+            },
+            {
+                id: 6,
+                subtopic: "Bahagian A: Objektif",
+                question: "Antara berikut, yang manakah merupakan bentuk segi empat tepat atau tubular?",
+                correctText: "Pakaian yang kelihatan lurus dari bahu ke bawah",
+                wrongTexts: [
+                    "Pakaian yang mempunyai bahagian pinggang besar",
+                    "Pakaian yang mempunyai bahagian bawah sangat lebar",
+                    "Pakaian yang menyerupai bentuk segi tiga"
+                ],
+                explanation: "Bentuk segi empat tepat (tubular) mempunyai siluet yang lurus dari bahagian bahu hingga ke bahagian bawah pakaian."
+            },
+            {
+                id: 7,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah ciri bentuk jam pasir atau hour glass?",
+                correctText: "Bahagian pinggang lebih kecil daripada bahagian atas dan bawah",
+                wrongTexts: [
+                    "Bahagian bawah pakaian berbentuk bulat",
+                    "Bahagian bahu lebih kecil daripada pinggang",
+                    "Keseluruhan pakaian berbentuk segi empat"
+                ],
+                explanation: "Bentuk jam pasir menonjolkan lekuk tubuh di mana bahagian pinggang lebih ramping/kecil berbanding bahu dan pinggul."
+            },
+            {
+                id: 8,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah maksud warna panas dalam reka bentuk fesyen?",
+                correctText: "Warna seperti merah, jingga dan kuning",
+                wrongTexts: [
+                    "Warna yang memberikan kesan sejuk",
+                    "Warna yang hanya digunakan pada kasut",
+                    "Warna seperti biru dan hijau"
+                ],
+                explanation: "Kumpulan warna panas terdiri daripada warna-warna terang yang berunsur ceria dan bertenaga seperti merah, jingga, dan kuning."
+            },
+            {
+                id: 9,
+                subtopic: "Bahagian A: Objektif",
+                question: "Apakah yang dimaksudkan dengan tekstur berkilat?",
+                correctText: "Tekstur yang memberikan kesan cahaya dan lebih elegan",
+                wrongTexts: [
+                    "Tekstur yang mempunyai permukaan kasar sahaja",
+                    "Tekstur yang tidak memantulkan cahaya",
+                    "Tekstur yang hanya digunakan pada pakaian sukan"
+                ],
+                explanation: "Tekstur berkilat (seperti fabrik satin/sutera) memantulkan cahaya dan menonjolkan imej yang mewah serta elegan."
+            },
+            {
+                id: 10,
+                subtopic: "Bahagian A: Objektif",
+                question: "Mengapakah penilaian lakaran reka bentuk fesyen penting?",
+                correctText: "Untuk memastikan reka bentuk memenuhi fungsi dan kehendak pengguna",
+                wrongTexts: [
+                    "Untuk memilih pakaian paling mahal",
+                    "Untuk menghasilkan pakaian tanpa lakaran",
+                    "Untuk mengurangkan penggunaan warna semata-mata"
+                ],
+                explanation: "Penilaian dilakukan bagi menguji kesesuaian elemen serta memastikan reka bentuk memenuhi kehendak dan fungsi penggunaan."
+            },
+
+            // ================= BAHAGIAN B – BETUL ATAU SALAH (11 - 20) =================
+            {
+                id: 11,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Lakaran 2D mempunyai dua dimensi, iaitu panjang dan lebar.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Lakaran 2D hanya menampilkan paksi panjang dan lebar."
+            },
+            {
+                id: 12,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Lakaran 3D tidak dapat menunjukkan bentuk pakaian dengan jelas.",
+                correctText: "Salah",
+                wrongTexts: ["Betul"],
+                explanation: "Pernyataan ini SALAH. Lakaran 3D memaparkan ke dalaman dan isipadu yang membolehkan rupa pakaian kelihatan lebih jelas dan nyata."
+            },
+            {
+                id: 13,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Garisan melintang boleh memberikan kesan tubuh kelihatan lebih lebar.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Garisan melintang memandangkan mata secara melintang yang memberi ilusi tubuh kelihatan lebih gempal/lebar."
+            },
+            {
+                id: 14,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Bentuk segi tiga terbalik mempunyai bahagian bahu yang lebih kecil daripada bahagian pinggul.",
+                correctText: "Salah",
+                wrongTexts: ["Betul"],
+                explanation: "Pernyataan ini SALAH. Bentuk segi tiga terbalik mempunyai bahagian bahu yang LEBIH LEBAR berbanding pinggul."
+            },
+            {
+                id: 15,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Warna merupakan elemen yang dapat memberikan kesan kepada penampilan pakaian.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Pemilihan warna yang tepat mampu mempengaruhi penampilan fizikal dan emosi pemakai."
+            },
+            {
+                id: 16,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Warna hitam dan putih tergolong dalam kumpulan warna panas.",
+                correctText: "Salah",
+                wrongTexts: ["Betul"],
+                explanation: "Pernyataan ini SALAH. Warna hitam, putih, dan kelabu dikategorikan sebagai warna berkecuali (neutral)."
+            },
+            {
+                id: 17,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Tekstur kasar boleh menghasilkan penampilan yang lebih lasak dan ranggi.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Fabrik bertekstur kasar seperti kanvas atau denim memberikan imej yang ranggi dan lasak."
+            },
+            {
+                id: 18,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Garisan menyerong hanya boleh digunakan pada pakaian lelaki.",
+                correctText: "Salah",
+                wrongTexts: ["Betul"],
+                explanation: "Pernyataan ini SALAH. Garisan menyerong sesuai digunakan dalam reka bentuk pakaian lelaki mahupun wanita."
+            },
+            {
+                id: 19,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Corak dalam reka bentuk fesyen boleh dihasilkan melalui gabungan garisan, bentuk dan motif.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Corak fabrik direka gabungan elemen garisan, rupa bentuk, serta ragam hias (motif)."
+            },
+            {
+                id: 20,
+                subtopic: "Bahagian B: Betul/Salah",
+                question: "Penilaian reka bentuk fesyen perlu mengambil kira kesesuaian bahan, warna, garisan dan bentuk.",
+                correctText: "Betul",
+                wrongTexts: ["Salah"],
+                explanation: "Pernyataan ini BETUL. Semua elemen reka bentuk ini dinilai bagi memastikan keharmonisan dan fungsi produk fesyen terjamin."
+            }
+        ];
+
+        let playerInfo = { name: "", class: "" };
+        let questionQueue = [];
+        let totalOriginalQuestions = 0;
+        let initialScore = 0;
+        let totalFirstAttempts = 0;
+        let wrongAttempts = 0;
+        let isBGMPlaying = false;
+        let canAnswer = true;
+
+        let boosterCounts = { c5050: 2, cHint: 2, cSkip: 1 };
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch(e) {}
+            }
+        }
+
+        let bgmInterval = null;
+        function playBGMNotes() {
+            if (!isBGMPlaying || !audioCtx) return;
+            const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+            const note = notes[Math.floor(Math.random() * notes.length)];
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+            } catch (e) {}
+        }
+
+        function toggleBGM() {
+            initAudio();
+            isBGMPlaying = !isBGMPlaying;
+            const statusText = document.getElementById('bgmStatus');
+            const icon = document.getElementById('bgmIcon');
+
+            if (isBGMPlaying) {
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                if (statusText) statusText.innerText = "Muzik: ON";
+                if (icon) icon.className = "fa-solid fa-music text-amber-500 animate-bounce";
+                bgmInterval = setInterval(playBGMNotes, 500);
+            } else {
+                if (statusText) statusText.innerText = "Muzik: OFF";
+                if (icon) icon.className = "fa-solid fa-volume-xmark text-slate-400";
+                clearInterval(bgmInterval);
+            }
+        }
+
+        function playSFX(type) {
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                if (type === 'correct') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.08);
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.16);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                } else if (type === 'wrong') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(175, audioCtx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'booster') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime
